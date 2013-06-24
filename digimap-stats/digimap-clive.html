@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Digimap Stats</title>
+    <link rel="stylesheet" href="/build/index.css" type="text/css" media="screen" charset="utf-8">
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href=".">Digimap Stats</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="digimap-logins.html">Logins</a></li>
+              <li><a href="digimap-databases.html">Databases</a></li>
+              <li><a href="digimap-maps.html">Maps Overview</a></li>
+              <li><a href="digimap-mapserver.html">Mapserver</a></li>
+              <li class="active"><a href="digimap-clive.html">Clive</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="dashboard" class="container-fluid">
+      
+      <div class="row-fluid">
+        <div id="codepoint-count" class="span4">
+        </div>
+        <div id="codepoint-response" class="span4">
+        </div>
+        <div id="codepoint-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="codepoint_query-count" class="span4">
+        </div>
+        <div id="codepoint_query-response" class="span4">
+        </div>
+        <div id="codepoint_query-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="gb-count" class="span4">
+        </div>
+        <div id="gb-response" class="span4">
+        </div>
+        <div id="gb-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="geology250k-count" class="span4">
+        </div>
+        <div id="geology250k-response" class="span4">
+        </div>
+        <div id="geology250k-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="geology50k-count" class="span4">
+        </div>
+        <div id="geology50k-response" class="span4">
+        </div>
+        <div id="geology50k-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="geology625k-count" class="span4">
+        </div>
+        <div id="geology625k-response" class="span4">
+        </div>
+        <div id="geology625k-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="geology625k_gb-count" class="span4">
+        </div>
+        <div id="geology625k_gb-response" class="span4">
+        </div>
+        <div id="geology625k_gb-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="marine-count" class="span4">
+        </div>
+        <div id="marine-response" class="span4">
+        </div>
+        <div id="marine-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="mastermap-count" class="span4">
+        </div>
+        <div id="mastermap-response" class="span4">
+        </div>
+        <div id="mastermap-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="mastermapplan-count" class="span4">
+        </div>
+        <div id="mastermapplan-response" class="span4">
+        </div>
+        <div id="mastermapplan-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="midscale-count" class="span4">
+        </div>
+        <div id="midscale-response" class="span4">
+        </div>
+        <div id="midscale-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="miniscale-count" class="span4">
+        </div>
+        <div id="miniscale-response" class="span4">
+        </div>
+        <div id="miniscale-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="profile-count" class="span4">
+        </div>
+        <div id="profile-response" class="span4">
+        </div>
+        <div id="profile-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="raster10k-count" class="span4">
+        </div>
+        <div id="raster10k-response" class="span4">
+        </div>
+        <div id="raster10k-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="raster25k-count" class="span4">
+        </div>
+        <div id="raster25k-response" class="span4">
+        </div>
+        <div id="raster25k-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="raster50k-count" class="span4">
+        </div>
+        <div id="raster50k-response" class="span4">
+        </div>
+        <div id="raster50k-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="strategi-count" class="span4">
+        </div>
+        <div id="strategi-response" class="span4">
+        </div>
+        <div id="strategi-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="vml-count" class="span4">
+        </div>
+        <div id="vml-response" class="span4">
+        </div>
+        <div id="vml-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="vmlplan-count" class="span4">
+        </div>
+        <div id="vmlplan-response" class="span4">
+        </div>
+        <div id="vmlplan-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="vmlraster10k-count" class="span4">
+        </div>
+        <div id="vmlraster10k-response" class="span4">
+        </div>
+        <div id="vmlraster10k-total" class="span4">
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="vmlstreet-count" class="span4">
+        </div>
+        <div id="vmlstreet-response" class="span4">
+        </div>
+        <div id="vmlstreet-total" class="span4">
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="/vendor/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/build/index.js"></script>    
+    <script type="text/javascript" src="digimap-clive.js"></script>    
+  </body>
+</html>
+

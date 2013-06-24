@@ -18,8 +18,8 @@
 NUM_COLORS = 10
 
 interval = 360/NUM_COLORS 
-i = 190
-j = 1
+i = 200 # starting hue
+j = 1 # CSS starting id
 
 # Figure out what a full circle from the start would be
 max = i + 360

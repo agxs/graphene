@@ -1,0 +1,196 @@
+/*
+ * Generated high contrast colors. See tools/gencolors.rb
+ */
+
+.h-col-1{ stroke: hsl(200, 100%, 50%); fill: hsl(200, 100%, 50%);}
+.h-col-2{ stroke: hsl(236, 100%, 50%); fill: hsl(236, 100%, 50%);}
+.h-col-3{ stroke: hsl(272, 100%, 50%); fill: hsl(272, 100%, 50%);}
+.h-col-4{ stroke: hsl(308, 100%, 50%); fill: hsl(308, 100%, 50%);}
+.h-col-5{ stroke: hsl(344, 100%, 50%); fill: hsl(344, 100%, 50%);}
+.h-col-6{ stroke: hsl(20, 100%, 50%); fill: hsl(20, 100%, 50%);}
+.h-col-7{ stroke: hsl(56, 100%, 50%); fill: hsl(56, 100%, 50%);}
+.h-col-8{ stroke: hsl(92, 100%, 50%); fill: hsl(92, 100%, 50%);}
+.h-col-9{ stroke: hsl(128, 100%, 50%); fill: hsl(128, 100%, 50%);}
+.h-col-10{ stroke: hsl(164, 100%, 50%); fill: hsl(164, 100%, 50%);}
+
+$textColour: #aaa;
+$fgTextColour: #0772a1;
+$boxForeground: #63afd0;
+$boxBackground: #fff;
+$boxBorder: #63afd0;
+$graphHeight: 100;
+
+@mixin box {
+  background: $boxBackground;
+/*  box-shadow: 0px 1px 4px 0px $boxBorder; */
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: $boxBorder;
+  border-style: solid;
+}
+
+body {
+  stroke: $textColour;
+  line-height: normal;
+  padding-top: 60px;
+}
+
+/* SVG styles */
+svg.tsview{
+  @include box;
+  height: $graphHeight + 60px;
+}
+
+.tall {
+  svg.tsview {
+    height: $graphHeight + 90px;
+  }
+}
+
+line.tick {
+  shape-rendering: crispEdges;
+}
+
+.area{
+  fill-opacity:0.2;
+}
+.line {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis{
+  line{
+    stroke-opacity:0.3;
+  }
+  path{
+    display: none;
+  }
+  .minor{
+    stroke-opacity: .5;
+  }
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke-opacity: 0.3;
+}
+
+.min-tag{
+  fill:red;
+  margin: 0 1em;
+}
+
+.max-tag{
+  fill:green;
+  margin: 0 1em;
+}
+
+.ts-color{
+  stroke:none;
+}
+
+text, tspan{
+  stroke:none;
+  fill: $textColour;
+}
+
+/*
+ *  Gauge Label
+ */
+.glview{
+  text-align: center;
+  color: $fgTextColour;
+  @include box;
+
+  .metric .value{
+    font-size:5em;
+  }
+
+  .label{
+    background-color: $boxForeground;
+    color: $fgTextColour;
+  }
+}
+
+/*
+ * Gauge Gadget
+ */
+.ggview{
+  text-align:center;
+
+  .gauge{
+    circle{
+      &.outer{
+        fill: #101010;
+        stroke: #000;
+        stroke-width: 0.5px;
+      }
+
+      &.inner{
+        fill: #050505;
+        stroke: #000;
+        stroke-width: 2px;
+      }
+
+      &.pointer-circle{
+        fill:#dd0000;
+        stroke:#000;
+        opacity:1;
+      }
+    }
+
+    line{
+      &.small-tick{
+        stroke: red;
+        stroke-opacity:0.3;
+        stroke-width: 1px;
+      }
+
+      &.big-tick{
+        stroke: red;
+        stroke-opacity: 0.8;
+        stroke-width: 2px;
+      }
+    }
+
+
+    text{
+      &.label{
+        fill: red;
+        stroke-width: 0px;
+        fill-opacity:0.4;
+      }
+
+      &.limit{
+        fill: red;
+        stroke-width: 0px;
+        fill-opacity: 0.3;
+      }
+
+      &.value{
+        fill:red;
+        stroke:red;
+        stroke-width:1px;
+      }
+    }
+
+    path{
+      &.pointer{
+        fill:red;
+        stroke:#c63310;
+        fill-opacity: 0.5;
+      }
+
+      &.band{
+        stroke:none;
+        fill-opacity:0.9;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Digimap Stats</title>
+    <link rel="stylesheet" href="/build/index.css" type="text/css" media="screen" charset="utf-8">
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href=".">Digimap Stats</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="digimap-logins.html">Logins</a></li>
+              <li><a href="digimap-databases.html">Databases</a></li>
+              <li><a href="digimap-maps.html">Maps Overview</a></li>
+              <li><a href="digimap-mapserver.html">Mapserver</a></li>
+              <li><a href="digimap-clive.html">Clive</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="hero-unit">
+          <h3>Digimap Logfile Stats</h3>
+          <ul>
+            <li>Maps/Minute graphs count the number of requested maps in a minute.</li>
+            <li>Response times are all in milliseconds.</li>
+            <li>Max Response is the maximum response time from the aggregate of the average map times for each map type.</li>
+            <li>Avg Response is the average response time to generate all the maps in that minute.</li>
+            <li>Backends is the number of database users connected.</li>
+            <li>Xacts is the number of transactions(not queries).</li>
+            <li>Blocks is the number of blocked transactions. <strong>Anything non-zero is very bad!</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="/vendor/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/build/index.js"></script>    
+    <script type="text/javascript" src="digimap-logins.js"></script>    
+  </body>
+</html>
+
