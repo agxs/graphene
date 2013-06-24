@@ -197,7 +197,9 @@ class Graphene.TimeSeries extends Graphene.GraphiteModel
       return null unless last != undefined      
       _.each dp.datapoints, (d) -> d[1] = new Date(d[1]*1000)
       return {
-        points: _.reject(dp.datapoints, (d)-> d[0] == null),
+        points: _.map dp.datapoints, (d)->
+          d[0] = if d[0] == null then 0 else d[0]
+          return d
         ymin: min,
         ymax: max,
         last: last,
