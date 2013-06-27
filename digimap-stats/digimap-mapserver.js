@@ -16,7 +16,7 @@
                                    '#' + element + '-response' );
     description[element+'_response'] = tsResp;
 
-    var total = createGaugeLabel( 'Total ' + element.toUpperCase() + ' Maps',
+    var total = createGaugeLabel( 'Total ' + element.toUpperCase() + ' Maps/hour',
                                   'integral(digimap.maps.ms_' + element + '_count)',
                                   '#' + element + '-total', 'max' );
     description[element+'_total'] = total;

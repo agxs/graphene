@@ -12,10 +12,10 @@
   description = {
     mapserverCount: createTimeSeries( 'Mapserver - Maps/Minute', [ms_target_count], '#mapserver-count' ),
     mapserverResponse: createTimeSeries( 'Mapserver - Max Response', [ms_target_response], '#mapserver-response' ),
-    msTotal: createGaugeLabel( 'Total Mapserver Maps', 'integral(' + ms_target_count + ')', '#mapserver-total', 'max' ),
+    msTotal: createGaugeLabel( 'Total Mapserver Maps/hour', 'integral(' + ms_target_count + ')', '#mapserver-total', 'max' ),
     cliveCount: createTimeSeries( 'Clive - Maps/Minute', [clive_count], '#clive-count' ),
     cliveResponse: createTimeSeries( 'Clive - Max Response', [clive_response], '#clive-response' ),
-    cliveTotal: createGaugeLabel( 'Total Clive Maps', 'integral(' + clive_count + ')', '#clive-total', 'max' ),
+    cliveTotal: createGaugeLabel( 'Total Clive Maps/hour', 'integral(' + clive_count + ')', '#clive-total', 'max' ),
   };
 
 
