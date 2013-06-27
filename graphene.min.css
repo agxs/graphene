@@ -685,7 +685,7 @@ svg.tsview {
   border-radius: 4px; }
 
 line.tick {
-  shape-rendering: crispEdges; }
+  shape-rendering: geometricPrecision; }
 
 .area {
   fill-opacity: 0.2; }
@@ -695,7 +695,7 @@ line.tick {
   stroke-width: 1px; }
 
 .axis {
-  shape-rendering: crispEdges; }
+  shape-rendering: geometricPrecision; }
 
 .x.axis line {
   stroke-opacity: 0.3; }
