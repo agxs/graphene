@@ -431,6 +431,12 @@ class Graphene.TimeSeriesView extends Backbone.View
     #
     points = _.map data, (d)-> d.points
 
+    # Can only draw circles as one array so merge them together
+    # also track which data set they came from so we can colour them
+    circlePoints = [];
+    _.each( points, (p,i) ->
+      _.each( p, (_p) -> _p[2] = i )
+      circlePoints = circlePoints.concat( p ) )
 
     if @firstrun
       @firstrun = false
@@ -459,12 +465,6 @@ class Graphene.TimeSeriesView extends Backbone.View
       vis.selectAll("path.area").data(points).enter().append('path').attr("d", area).attr('class',  (d,i) -> 'area '+"h-col-#{i+1}")
 
       # Tooltip circles
-      # Can only draw circles as one array so merge them together
-      # also track which data set they came from so we can colour them
-      circlePoints = [];
-      _.each( points, (p,i) ->
-        _.each( p, (_p) -> _p[2] = i )
-        circlePoints = circlePoints.concat( p ) )
       # Draw the circles
       vis.selectAll('circle')
          .data(circlePoints)
@@ -558,6 +558,14 @@ class Graphene.TimeSeriesView extends Backbone.View
         .attr("d", line)
         .transition()
         .ease("linear")
+        .duration(@animate_ms)
+
+    vis.selectAll('circle')
+        .data(circlePoints)
+        .attr('cx', (d) -> x(d[1]) )
+        .attr('cy', (d) -> y(d[0]) )
+        .transition()
+        .ease('linear')
         .duration(@animate_ms)
 
 
