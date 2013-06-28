@@ -13,6 +13,17 @@
 .h-col-9{ stroke: hsl(128, 100%, 50%); fill: hsl(128, 100%, 50%);}
 .h-col-10{ stroke: hsl(164, 100%, 50%); fill: hsl(164, 100%, 50%);}
 
+.p-col-1:hover{ stroke: white; fill: hsl(200, 100%, 50%);}
+.p-col-2:hover{ stroke: white; fill: hsl(236, 100%, 50%);}
+.p-col-3:hover{ stroke: white; fill: hsl(272, 100%, 50%);}
+.p-col-4:hover{ stroke: white; fill: hsl(308, 100%, 50%);}
+.p-col-5:hover{ stroke: white; fill: hsl(344, 100%, 50%);}
+.p-col-6:hover{ stroke: white; fill: hsl(20, 100%, 50%);}
+.p-col-7:hover{ stroke: white; fill: hsl(56, 100%, 50%);}
+.p-col-8:hover{ stroke: white; fill: hsl(92, 100%, 50%);}
+.p-col-9:hover{ stroke: white; fill: hsl(128, 100%, 50%);}
+.p-col-10:hover{ stroke: white; fill: hsl(164, 100%, 50%);}
+
 $textColour: #aaa;
 $fgTextColour: #0772a1;
 $boxForeground: #63afd0;
@@ -63,10 +74,10 @@ circle {
   stroke: none;
   pointer-events: all;
 }
-circle:hover {
+/*circle:hover {
   fill: $boxBorder;
   stroke: white;
-}
+}*/
 
 .area{
   fill-opacity:0.2;
