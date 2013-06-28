@@ -360,6 +360,14 @@ class Graphene.TimeSeriesView extends Backbone.View
             .attr("height", @height + (@padding[0]+@padding[2]))
             .append("g")
             .attr("transform", "translate(" + @padding[3] + "," + @padding[0] + ")")
+#            .on('mousemove', =>
+#                infobox = d3.select('.infobox')
+#                coord = d3.svg.mouse(this.vis[0][0])
+#                infobox.style('left', coord[0] + 15 + 'px' )
+#                infobox.style('top', coord[1] + 'px' )
+#                value = getText( coord, this.vis[0][0], this )
+#                infobox.html( value[0] )
+#            )
     # Is this used in the timeseries? -dvdv
     @value_format  = @options.value_format || ".3s"
     @value_format = d3.format(@value_format)
@@ -449,6 +457,17 @@ class Graphene.TimeSeriesView extends Backbone.View
       #
       vis.selectAll("path.line").data(points).enter().append('path').attr("d", line).attr('class',  (d,i) -> 'line '+"h-col-#{i+1}")
       vis.selectAll("path.area").data(points).enter().append('path').attr("d", area).attr('class',  (d,i) -> 'area '+"h-col-#{i+1}")
+
+      # Tooltip circles
+      vis.selectAll('circle')
+         .data(points[0])
+         .enter()
+         .append('circle')
+         .attr('r', 5)
+         .attr('cx', (d) -> x(d[1]) )
+         .attr('cy', (d) -> y(d[0]) )
+         .append('title')
+         .text( (d) -> d[0] )
 
       #
       # Title + Legend

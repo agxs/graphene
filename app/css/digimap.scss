@@ -35,6 +35,13 @@ body {
   padding-top: 60px;
 }
 
+.infobox {
+  position: absolute;
+  width: 200px;
+  padding: 10px;
+  background-color: #aaa;
+}
+
 /* SVG styles */
 svg.tsview{
   @include box;
@@ -49,6 +56,16 @@ svg.tsview{
 
 line.tick {
   shape-rendering: crispEdges;
+}
+
+circle {
+  fill: none;
+  stroke: none;
+  pointer-events: all;
+}
+circle:hover {
+  fill: $boxBorder;
+  stroke: white;
 }
 
 .area{

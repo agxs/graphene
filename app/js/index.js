@@ -49,3 +49,11 @@ function maxSeriesTarget( maps, prefix, suffix ) {
   return 'maxSeries(' + datapoints.slice( 0, -1 ) + ')';
 }
 
+function getText( coord, vis, ts ) {
+  var width = ts.width;
+  var points = ts.model.attributes.data[0].points;
+  var x = _.min( [_.max([coord[0], 0]), width] );
+  var position = parseInt( (x / width) * (points.length-1) );
+  return points[position];
+}
+
