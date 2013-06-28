@@ -437,6 +437,7 @@ class Graphene.TimeSeriesView extends Backbone.View
     _.each( points, (p,i) ->
       _.each( p, (_p) -> _p[2] = i )
       circlePoints = circlePoints.concat( p ) )
+    @circleTooltips
 
     if @firstrun
       @firstrun = false
@@ -466,16 +467,16 @@ class Graphene.TimeSeriesView extends Backbone.View
 
       # Tooltip circles
       # Draw the circles
-      vis.selectAll('circle')
-         .data(circlePoints)
-         .enter()
-         .append('circle')
-         .attr('r', 5)
-         .attr('cx', (d) -> x(d[1]) )
-         .attr('cy', (d) -> y(d[0]) )
-         .attr('class', (d,i) -> "p-col-#{d[2]+1}" )
-         .append('title')
-         .text( (d) -> d[0] )
+      @circleTooltips = vis.selectAll('circle')
+                           .data(circlePoints)
+                           .enter()
+                           .append('circle')
+                           .attr('r', 5)
+                           .attr('cx', (d) -> x(d[1]) )
+                           .attr('cy', (d) -> y(d[0]) )
+                           .attr('class', (d,i) -> "p-col-#{d[2]+1}" )
+                           .append('title')
+      @circleTooltips.text( (d) -> d[0] )
 
       #
       # Title + Legend
@@ -561,12 +562,17 @@ class Graphene.TimeSeriesView extends Backbone.View
         .duration(@animate_ms)
 
     vis.selectAll('circle')
-        .data(circlePoints)
-        .attr('cx', (d) -> x(d[1]) )
-        .attr('cy', (d) -> y(d[0]) )
-        .transition()
-        .ease('linear')
-        .duration(@animate_ms)
+       .data(circlePoints)
+       .attr('cx', (d) -> x(d[1]) )
+       .attr('cy', (d) -> y(d[0]) )
+       .transition()
+       .ease('linear')
+       .duration(@animate_ms)
+    @circleTooltips.remove()
+    @circleTooltips = vis.selectAll('circle')
+                         .data(circlePoints)
+                         .append('title')
+    @circleTooltips.text( (d) -> d[0] )
 
 
 # Barcharts
