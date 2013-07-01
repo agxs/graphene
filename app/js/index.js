@@ -23,7 +23,7 @@ function createTimeSeries( titleText, datapoint, div, numlabels ) {
       num_labels: numlabels ? numlabels : '0',
       null_value: 0,
       label_formatter: function( label ) {
-        return label.replace( /.*\.(.*)\)$/, '$1' );
+        return label.replace( /.*\.([A-z_0-9]*).*$/, '$1' );
       }
     }
   };
