@@ -84,7 +84,8 @@ circle {
 }
 .line {
   fill: none;
-  stroke-width: 1px;
+  stroke-width: 2px;
+  shape-rendering: geometricPrecision;
 }
 
 .axis {
