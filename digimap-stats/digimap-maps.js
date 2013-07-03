@@ -1,6 +1,10 @@
 (function() {
   var description;
 
+  var tc_maps = ['os', 'historic', 'geology', 'marine', 'ceh'];
+  var tc_target_count = maxSeriesTarget( tc_maps, 'digimap.maps.tc_', '_cache_count' );
+  var tc_target_response = maxSeriesTarget( tc_maps, 'digimap.maps.tc_', '_cache_response' );
+
   var ms_maps = ['os', 'historic', 'geology', 'marine', 'ceh', 'agcensus', 'landuse', 'schools'];
   var ms_target_count = maxSeriesTarget( ms_maps, 'digimap.maps.ms_', '_count' );
   var ms_target_response = maxSeriesTarget( ms_maps, 'digimap.maps.ms_', '_response' );
@@ -10,6 +14,9 @@
   var clive_response = maxSeriesTarget( clive_maps, 'digimap.maps.clive_', '_response' );
 
   description = {
+    tilecacheCount: createTimeSeries( 'Tilecache - Maps/Minute', [tc_target_count], '#tilecache-count' ),
+    tilecacheResponse: createTimeSeries( 'Tilecache - Max Response', [tc_target_response], '#tilecache-response' ),
+    tcTotal: createGaugeLabel( 'Total Tilecache Maps/hour', 'integral(' + tc_target_count + ')', '#tilecache-total', 'max' ),
     mapserverCount: createTimeSeries( 'Mapserver - Maps/Minute', [ms_target_count], '#mapserver-count' ),
     mapserverResponse: createTimeSeries( 'Mapserver - Max Response', [ms_target_response], '#mapserver-response' ),
     msTotal: createGaugeLabel( 'Total Mapserver Maps/hour', 'integral(' + ms_target_count + ')', '#mapserver-total', 'max' ),
