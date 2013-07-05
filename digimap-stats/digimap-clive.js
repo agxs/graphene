@@ -7,16 +7,16 @@
 
   _.each( clive_maps, function( element ) {
     var tsCount = createTimeSeries( 'Clive ' + element.toUpperCase() + ' Maps/Minute',
-                                    ['digimap.maps.clive_' + element + '_count'],
+                                    ['digimap.maps.clive_' + element + '_map_count'],
                                     '#' + element + '-count' );
     description[element+'_count'] = tsCount;
 
     var tsResp = createTimeSeries( 'Clive ' + element.toUpperCase() + ' Avg Response',
-                                   ['digimap.maps.clive_' + element + '_response'],
+                                   ['digimap.maps.clive_' + element + '_map_response'],
                                    '#' + element + '-response' );
     description[element+'_response'] = tsResp;
     var total = createGaugeLabel( 'Total ' + element.toUpperCase() + ' Maps/hour',
-                                  'integral(digimap.maps.clive_' + element + '_count)',
+                                  'integral(digimap.maps.clive_' + element + '_map_count)',
                                   '#' + element + '-total', 'max' );            
     description[element+'_total'] = total;                                      
   });
