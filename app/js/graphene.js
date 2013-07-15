@@ -1,13 +1,28 @@
 var Graphene,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __bind = function(fn, me) {
+    return function() {
+      return fn.apply(me, arguments);
+    };
+  },
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) {
+    for (var key in parent) {
+      if (__hasProp.call(parent, key))
+        child[key] = parent[key];
+    }
+    function ctor() {
+      this.constructor = child;
+    }
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor();
+    child.__super__ = parent.prototype;
+    return child;
+  };
 
 Graphene = (function() {
 
   function Graphene() {
     this.build = __bind(this.build, this);
-
   }
 
   Graphene.prototype.demo = function() {
@@ -126,7 +141,6 @@ Graphene.GraphiteModel = (function(_super) {
 
   GraphiteModel.prototype.start = function() {
     this.refresh();
-    console.log("Starting to poll at " + (this.get('refresh_interval')));
     return this.t_index = setInterval(this.refresh, this.get('refresh_interval'));
   };
 
@@ -161,103 +175,6 @@ Graphene.GraphiteModel = (function(_super) {
 
 })(Backbone.Model);
 
-Graphene.DemoTimeSeries = (function(_super) {
-
-  __extends(DemoTimeSeries, _super);
-
-  function DemoTimeSeries() {
-    this.add_points = __bind(this.add_points, this);
-
-    this.refresh = __bind(this.refresh, this);
-
-    this.stop = __bind(this.stop, this);
-
-    this.start = __bind(this.start, this);
-    return DemoTimeSeries.__super__.constructor.apply(this, arguments);
-  }
-
-  DemoTimeSeries.prototype.defaults = {
-    range: [0, 1000],
-    num_points: 100,
-    num_new_points: 1,
-    num_series: 2,
-    refresh_interval: 3000
-  };
-
-  DemoTimeSeries.prototype.debug = function() {
-    return console.log("" + (this.get('refresh_interval')));
-  };
-
-  DemoTimeSeries.prototype.start = function() {
-    var _this = this;
-    console.log("Starting to poll at " + (this.get('refresh_interval')));
-    this.data = [];
-    _.each(_.range(this.get('num_series')), function(i) {
-      return _this.data.push({
-        label: "Series " + i,
-        ymin: 0,
-        ymax: 0,
-        points: []
-      });
-    });
-    this.point_interval = this.get('refresh_interval') / this.get('num_new_points');
-    _.each(this.data, function(d) {
-      return _this.add_points(new Date(), _this.get('range'), _this.get('num_points'), _this.point_interval, d);
-    });
-    this.set({
-      data: this.data
-    });
-    return this.t_index = setInterval(this.refresh, this.get('refresh_interval'));
-  };
-
-  DemoTimeSeries.prototype.stop = function() {
-    return clearInterval(this.t_index);
-  };
-
-  DemoTimeSeries.prototype.refresh = function() {
-    var last, num_new_points, start_date,
-      _this = this;
-    this.data = _.map(this.data, function(d) {
-      d = _.clone(d);
-      d.points = _.map(d.points, function(p) {
-        return [p[0], p[1]];
-      });
-      return d;
-    });
-    last = this.data[0].points.pop();
-    this.data[0].points.push(last);
-    start_date = last[1];
-    num_new_points = this.get('num_new_points');
-    _.each(this.data, function(d) {
-      return _this.add_points(start_date, _this.get('range'), num_new_points, _this.point_interval, d);
-    });
-    return this.set({
-      data: this.data
-    });
-  };
-
-  DemoTimeSeries.prototype.add_points = function(start_date, range, num_new_points, point_interval, d) {
-    var _this = this;
-    _.each(_.range(num_new_points), function(i) {
-      var new_point;
-      new_point = [range[0] + Math.random() * (range[1] - range[0]), new Date(start_date.getTime() + (i + 1) * point_interval)];
-      d.points.push(new_point);
-      if (d.points.length > _this.get('num_points')) {
-        return d.points.shift();
-      }
-    });
-    d.ymin = d3.min(d.points, function(d) {
-      return d[0];
-    });
-    return d.ymax = d3.max(d.points, function(d) {
-      return d[0];
-    });
-  };
-
-  return DemoTimeSeries;
-
-})(Backbone.Model);
-
 Graphene.BarChart = (function(_super) {
 
   __extends(BarChart, _super);
@@ -269,7 +186,6 @@ Graphene.BarChart = (function(_super) {
 
   BarChart.prototype.process_data = function(js) {
     var data;
-    console.log('process data barchart');
     data = _.map(js, function(dp) {
       var max, min;
       min = d3.min(dp.datapoints, function(d) {
@@ -529,7 +445,6 @@ Graphene.GaugeLabelView = (function(_super) {
     return _displaceTime( this, 30 );
   };
 
-
   return GaugeLabelView;
 
 })(Backbone.View);
@@ -563,25 +478,29 @@ Graphene.TimeSeriesView = (function(_super) {
     this.null_value = 0;
     this.show_current = this.options.show_current || false;
     this.observer = this.options.observer;
-    this.vis = d3.select(this.parent).append("svg").attr("class", "tsview").attr("width", this.width + (this.padding[1] + this.padding[3])).attr("height", this.height + (this.padding[0] + this.padding[2])).append("g").attr("transform", "translate(" + this.padding[3] + "," + this.padding[0] + ")");
+    this.vis = d3.select(this.parent)
+                 .append("svg")
+                 .attr("class", "tsview")
+                 .attr("width", this.width + (this.padding[1] + this.padding[3]))
+                 .attr("height", this.height + (this.padding[0] + this.padding[2]))
+                 .append("g")
+                 .attr("transform", "translate(" + this.padding[3] + "," + this.padding[0] + ")");
     this.value_format = this.options.value_format || ".3s";
     this.value_format = d3.format(this.value_format);
     this.model.bind('change', this.render);
-    return console.log("TS view: " + this.width + "x" + this.height + " padding:" + this.padding + " animate: " + this.animate_ms + " labels: " + this.num_labels);
   };
 
   TimeSeriesView.prototype.render = function() {
-    var area, circlePoints, d, data, dmax, dmin, leg_items, line, litem_enters, litem_enters_text, order, points, title, vis, x, xAxis, xmax, xmin, xpoints, xtick_sz, y, yAxis, _ref,
+    var area, circlePoints, d, data, dmax, dmin, leg_items, line, litem_enters,
+        litem_enters_text, order, points, title, vis, x, xAxis, xmax, xmin,
+        xpoints, xtick_sz, y, yAxis, _ref,
       _this = this;
-    console.log("rendering.");
     data = this.model.get('data');
-    data = data && data.length > 0 ? data : [
-      {
-        ymax: this.null_value,
-        ymin: this.null_value,
-        points: [[this.null_value, 0], [this.null_value, 0]]
-      }
-    ];
+    data = data && data.length > 0 ? data : [{
+      ymax: this.null_value,
+      ymin: this.null_value,
+      points: [[this.null_value, 0], [this.null_value, 0]]
+    }];
     dmax = _.max(data, function(d) {
       return d.ymax;
     });
@@ -607,11 +526,29 @@ Graphene.TimeSeriesView = (function(_super) {
     xmax = _.max(xpoints, function(x) {
       return x.valueOf();
     });
-    x = d3.time.scale().domain([xmin, xmax]).range([0, this.width]);
-    y = d3.scale.linear().domain([dmin.ymin_graph, dmax.ymax_graph]).range([this.height, 0]).nice();
+    x = d3.time
+          .scale()
+          .domain([xmin, xmax])
+          .range([0, this.width]);
+    y = d3.scale
+          .linear()
+          .domain([dmin.ymin_graph, dmax.ymax_graph])
+          .range([this.height, 0]).nice();
     xtick_sz = this.display_verticals ? -this.height : 0;
-    xAxis = d3.svg.axis().scale(x).ticks(4).tickSize(xtick_sz).tickFormat(d3.time.format("%H:%M")).tickSubdivide(true);
-    yAxis = d3.svg.axis().scale(y).ticks(4).tickSize(-this.width).orient("left").tickFormat(d3.format("s"));
+    xAxis = d3.svg
+              .axis()
+              .scale(x)
+              .ticks(4)
+              .tickSize(xtick_sz)
+              .tickFormat(d3.time.format("%H:%M"))
+              .tickSubdivide(true);
+    yAxis = d3.svg
+              .axis()
+              .scale(y)
+              .ticks(4)
+              .tickSize(-this.width)
+              .orient("left")
+              .tickFormat(d3.format("s"));
     vis = this.vis;
     line = d3.svg.line().x(function(d) {
       return x(d[1]);
@@ -645,15 +582,37 @@ Graphene.TimeSeriesView = (function(_super) {
     this.circleTooltips;
     if (this.firstrun) {
       this.firstrun = false;
-      vis.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + this.height + ")").transition().duration(this.animate_ms).call(xAxis);
-      vis.append("svg:g").attr("class", "y axis").call(yAxis);
-      vis.selectAll("path.line").data(points).enter().append('path').attr("d", line).attr('class', function(d, i) {
+      vis.append("svg:g")
+         .attr("class", "x axis")
+         .attr("transform", "translate(0," + this.height + ")")
+         .transition()
+         .duration(this.animate_ms)
+         .call(xAxis);
+      vis.append("svg:g")
+         .attr("class", "y axis")
+         .call(yAxis);
+      vis.selectAll("path.line")
+         .data(points)
+         .enter()
+         .append('path')
+         .attr("d", line)
+         .attr('class', function(d, i) {
         return 'line ' + ("h-col-" + (i + 1));
       });
-      vis.selectAll("path.area").data(points).enter().append('path').attr("d", area).attr('class', function(d, i) {
+      vis.selectAll("path.area")
+        .data(points)
+        .enter()
+        .append('path')
+        .attr("d", area)
+        .attr('class', function(d, i) {
         return 'area ' + ("h-col-" + (i + 1));
       });
-      this.circleTooltips = vis.selectAll('circle').data(circlePoints).enter().append('circle').attr('r', 5).attr('cx', function(d) {
+      this.circleTooltips = vis.selectAll('circle')
+                               .data(circlePoints)
+                               .enter()
+                               .append('circle')
+                               .attr('r', 5)
+                               .attr('cx', function(d) {
         return x(d[1]);
       }).attr('cy', function(d) {
         return y(d[0]);
@@ -664,46 +623,87 @@ Graphene.TimeSeriesView = (function(_super) {
         return d[0];
       });
       if (this.title) {
-        title = vis.append('svg:text').attr('class', 'title').attr('transform', "translate(0, -" + this.line_height + ")").text(this.title);
+        title = vis.append('svg:text')
+                   .attr('class', 'title')
+                   .attr('transform', "translate(0, -" + this.line_height + ")")
+                   .text(this.title);
       }
-      this.legend = vis.append('svg:g').attr('transform', "translate(0, " + (this.height + this.line_height * 2) + ")").attr('class', 'legend');
+      this.legend = vis.append('svg:g')
+                       .attr('transform', "translate(0, " + (this.height + this.line_height * 2) + ")")
+                       .attr('class', 'legend');
     }
-    leg_items = this.legend.selectAll('g.l').data(_.first(data, this.num_labels), function(d) {
+    leg_items = this.legend
+                    .selectAll('g.l')
+                    .data(_.first(data, this.num_labels), function(d) {
       return Math.random();
     });
     leg_items.exit().remove();
-    litem_enters = leg_items.enter().append('svg:g').attr('transform', function(d, i) {
+    litem_enters = leg_items.enter()
+                            .append('svg:g')
+                            .attr('transform', function(d, i) {
       return "translate(0, " + (i * _this.line_height) + ")";
     }).attr('class', 'l');
-    litem_enters.append('svg:rect').attr('width', 5).attr('height', 5).attr('class', function(d, i) {
+    litem_enters.append('svg:rect')
+                .attr('width', 5)
+                .attr('height', 5)
+                .attr('class', function(d, i) {
       return 'ts-color ' + ("h-col-" + (i + 1));
     });
-    litem_enters_text = litem_enters.append('svg:text').attr('dx', 10).attr('dy', 6).attr('class', 'ts-text').text(function(d) {
+    litem_enters_text = litem_enters.append('svg:text')
+                                    .attr('dx', 10)
+                                    .attr('dy', 6)
+                                    .attr('class', 'ts-text')
+                                    .text(function(d) {
       return _this.label_formatter(d.label);
     });
-    litem_enters_text.append('svg:tspan').attr('class', 'min-tag').attr('dx', 10).text(function(d) {
+    litem_enters_text.append('svg:tspan')
+                     .attr('class', 'min-tag')
+                     .attr('dx', 10)
+                     .text(function(d) {
       return _this.value_format(d.ymin) + "min";
     });
-    litem_enters_text.append('svg:tspan').attr('class', 'max-tag').attr('dx', 2).text(function(d) {
+    litem_enters_text.append('svg:tspan')
+                     .attr('class', 'max-tag')
+                     .attr('dx', 2)
+                     .text(function(d) {
       return _this.value_format(d.ymax) + "max";
     });
     if (this.show_current === true) {
-      litem_enters_text.append('svg:tspan').attr('class', 'last-tag').attr('dx', 2).text(function(d) {
+      litem_enters_text.append('svg:tspan')
+                       .attr('class', 'last-tag')
+                       .attr('dx', 2).text(function(d) {
         return _this.value_format(d.last) + "last";
       });
     }
-    vis.transition().ease("linear").duration(this.animate_ms).select(".x.axis").call(xAxis);
+    vis.transition()
+       .ease("linear")
+       .duration(this.animate_ms)
+       .select(".x.axis").call(xAxis);
     vis.select(".y.axis").call(yAxis);
-    vis.selectAll("path.area").data(points).attr("d", area).transition().ease("linear").duration(this.animate_ms);
-    vis.selectAll("path.line").data(points).attr("d", line).transition().ease("linear").duration(this.animate_ms);
-    vis.selectAll('circle').data(circlePoints).attr('cx', function(d) {
-      return x(d[1]);
-    }).attr('cy', function(d) {
-      return y(d[0]);
-    }).transition().ease('linear').duration(this.animate_ms);
+    vis.selectAll("path.area")
+       .data(points)
+       .attr("d", area)
+       .transition()
+       .ease("linear")
+       .duration(this.animate_ms);
+    vis.selectAll("path.line")
+       .data(points)
+       .attr("d", line)
+       .transition()
+       .ease("linear")
+       .duration(this.animate_ms);
+    vis.selectAll('circle')
+       .data(circlePoints)
+       .attr('cx', function(d) { return x(d[1]); })
+       .attr('cy', function(d) { return y(d[0]); })
+       .transition()
+       .ease('linear')
+       .duration(this.animate_ms);
     this.circleTooltips.remove();
-    this.circleTooltips = vis.selectAll('circle').data(circlePoints).append('title');
-    return this.circleTooltips.text(function(d) {
+    this.circleTooltips = vis.selectAll('circle')
+                             .data(circlePoints)
+                             .append('title');
+    this.circleTooltips.text(function(d) {
       return d[0];
     });
   };
