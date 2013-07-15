@@ -5,7 +5,7 @@
 //= require 'js/d3.gauge'
 //= require 'js/graphene'
 
-var GRAPHITE_URL = 'http://129.215.193.214/render?from=-1hours&until=now&format=json&';
+var GRAPHITE_URL = 'http://129.215.193.214/render?from=-60min&until=now&format=json&';
 
 function createTimeSeries( titleText, datapoint, div, numlabels ) {
   var targets = _.reduce( datapoint, function( state, target ) {
