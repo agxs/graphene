@@ -33,7 +33,6 @@ Graphene = (function() {
     var _this = this;
     return _.each(_.keys(json), function(k) {
       var klass, model_opts, ts;
-      console.log("building [" + k + "]");
       if (_this.is_demo) {
         klass = Graphene.DemoTimeSeries;
       } else {
@@ -160,7 +159,6 @@ Graphene.GraphiteModel = (function(_super) {
       dataType: 'json',
       jsonp: 'jsonp',
       success: function(js) {
-        console.log("got data.");
         return _this.process_data(js);
       }
     };
@@ -325,7 +323,6 @@ Graphene.GaugeGadgetView = (function(_super) {
     this.gauge = new Gauge("" + this.title + "GaugeContainer", config);
     this.gauge.render();
     this.model.bind('change', this.render);
-    return console.log("GG view ");
   };
 
   GaugeGadgetView.prototype.by_type = function(d) {
@@ -343,7 +340,6 @@ Graphene.GaugeGadgetView = (function(_super) {
 
   GaugeGadgetView.prototype.render = function() {
     var data, datum;
-    console.log("rendering.");
     data = this.model.get('data');
     datum = data && data.length > 0 ? data[0] : {
       ymax: this.null_value,
@@ -389,7 +385,6 @@ Graphene.GaugeLabelView = (function(_super) {
       this.vis.append("div").attr("class", "label").text(this.title);
     }
     this.model.bind('change', this.render);
-    return console.log("GL view ");
   };
 
   GaugeLabelView.prototype.by_type = function(d) {
@@ -409,7 +404,6 @@ Graphene.GaugeLabelView = (function(_super) {
     var data, datum, metric, metric_items, vis,
       _this = this;
     data = this.model.get('data');
-    console.log(data);
     datum = data && data.length > 0 ? data[0] : {
       ymax: this.null_value,
       ymin: this.null_value,
@@ -776,7 +770,6 @@ Graphene.BarChartView = (function(_super) {
       if (scale == null) {
         scale = 1;
       }
-      console.log(scale);
       return (width / points[0].length) * scale;
     };
     x = d3.time.scale().domain([data[0].points[0][1], data[0].points[data[0].points.length - 1][1]]).range([0, this.width - calculate_bar_width(points, this.width)]);
@@ -792,7 +785,6 @@ Graphene.BarChartView = (function(_super) {
       this.firstrun = false;
       vis.selectAll("rect").remove();
       vis.selectAll("rect").data(points[0]).enter().append("rect").attr("x", function(d, i) {
-        console.log(x(d[1]));
         return x(d[1]);
       }).attr("y", function(d, i) {
         return canvas_height - (canvas_height - y(d[0]));
@@ -809,7 +801,6 @@ Graphene.BarChartView = (function(_super) {
     }).attr("class", "h-col-1 area");
     vis.transition().ease("linear").duration(this.animate_ms).select(".x.axis").call(xAxis);
     vis.select(".y.axis").call(yAxis);
-    return console.log("done drawing");
   };
 
   return BarChartView;
