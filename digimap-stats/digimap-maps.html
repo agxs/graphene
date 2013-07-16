@@ -24,11 +24,17 @@
       </div>
     </div>
 
-    <div id="dashboard" class="container-fluid">
-      <div id="time-buttons" class="row-fluid">
-        <button id="minus-time" class="btn">-30 minutes</button>
-        <button id="plus-time" class="btn">+30 minutes</button>
+    <div class="container-fluid">
+      <div id="time-buttons" class="row-fluid span12">
+        <p class="text-center">
+          <button id="minus-time" class="btn" data-time="-180">-3 hours</button>
+          <button id="minus-time" class="btn" data-time="-30">-30 minutes</button>
+          <button id="plus-time" class="btn" data-time="30">+30 minutes</button>
+          <button id="plus-time" class="btn" data-time="180">+3 hours</button>
+        </p>
       </div>
+    </div>
+    <div id="dashboard" class="container-fluid">
       <div class="row-fluid">
         <div id="tilecache-count" class="span4">
         </div>

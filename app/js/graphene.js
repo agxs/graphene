@@ -707,12 +707,14 @@ Graphene.TimeSeriesView = (function(_super) {
     "click #plus-time": "plusTime"
   };
 
-  TimeSeriesView.prototype.minusTime = function() {
-    return _displaceTime( this, -30 );
+  TimeSeriesView.prototype.minusTime = function( e ) {
+    var time = parseInt( e.currentTarget.dataset['time'] );
+    return _displaceTime( this, time );
   };
 
-  TimeSeriesView.prototype.plusTime = function() {
-    return _displaceTime( this, 30 );
+  TimeSeriesView.prototype.plusTime = function( e ) {
+    var time = parseInt( e.currentTarget.dataset['time'] );
+    return _displaceTime( this, time );
   };
 
   return TimeSeriesView;
